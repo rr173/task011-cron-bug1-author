@@ -215,7 +215,7 @@ func (e *Expr) Next(from time.Time) (time.Time, error) {
 	loc := from.Location()
 	// 起始候选：from 所在分钟的下一分钟整（保证严格晚于 from）。
 	t := time.Date(from.Year(), from.Month(), from.Day(), from.Hour(), from.Minute(), 0, 0, loc)
-	if t.Before(from) {
+	if !t.After(from) {
 		t = t.Add(time.Minute)
 	}
 	limit := from.Add(searchLimit)
